@@ -1,4 +1,4 @@
-[
+[[
 
 https://github.com/user-attachments/assets/7154b3a5-e7dc-4e73-abe6-2434cf6c8e82
 
@@ -167,6 +167,67 @@ The Wiki in the source repository has a step-by-step setup guide and a full run 
 `JavaScript` · `React` · `React Native (Expo)` · `Node.js` · `MongoDB` · `C / C++17` · `Docker Compose` · `CMake` · `Python` (client) · `HTML / CSS / Bootstrap`
 
 ## Authors
+
+- Ariel Golod
+- Dvir Tabib
+- Eylon Hakak)
+](https://github.com/user-attachments/assets/7154b3a5-e7dc-4e73-abe6-2434cf6c8e82
+
+> 🔊 The embedded player starts muted. **[▶ Open the demo with sound](https://github.com/user-attachments/assets/7154b3a5-e7dc-4e73-abe6-2434cf6c8e82)**
+
+# EAD Drive: Demo
+
+**A 21-second demo of EAD, a cloud drive my team of three built from scratch for the Advanced Systems Programming course: a web app and a mobile app, a Node.js API, MongoDB, and a file server written in C++.**
+
+This repository holds only the demo video and an explanation of the project. The source code is here: **[ProjectGoogleDrive](https://github.com/eylonh1303/ProjectGoogleDrive/tree/FINAL)** (branch `FINAL`).
+
+> The data in the video is demo data.
+
+---
+
+## The idea
+
+We wanted to understand what actually sits under a product like Google Drive, so instead of using a ready-made backend we built the whole stack ourselves: the user interface, the API, the database and the part that stores the files. Every layer is code we wrote and wired together.
+
+## What the demo shows
+
+1. **A working cloud drive.** Home, My Drive, Shared with me, Recent, Starred and Bin, with search and a New button, like a real drive.
+2. **Organizing and sharing.** Files and folders can be shared with another user by email, with a permission level (for example Write), or made public.
+3. **Dark mode and Hebrew.** One click switches to dark mode, and the whole interface flips to right-to-left Hebrew.
+4. **The architecture underneath.** The React web app and the React Native mobile app talk to a Node.js API, which uses MongoDB for users, files, folders and permissions, and a C++ file server underneath, all started together with Docker Compose.
+
+## What the app can do
+
+- **Accounts:** register and sign in with username or email, with secure JWT authentication.
+- **Files and folders:** create, edit, rename, move and delete; upload and edit images.
+- **Bin:** deleted items are kept and can be restored.
+- **Sharing:** share with other users by email, with permission-based access.
+- **Interface:** side menu, item options menu, bottom tab navigation, search, dark / light mode, multi-language support.
+- **Two clients, one account:** the same account works on the web and on a phone.
+
+## How it is built
+
+```mermaid
+flowchart LR
+  W[React web app] --> API
+  M[React Native mobile app] --> API
+  API[Node.js REST API<br/>JWT login, users, permissions] --> DB[(MongoDB<br/>users, files, folders, permissions)]
+  API <-->|TCP sockets| CPP[C++ file server<br/>thread pool + command pattern]
+  CPP --> FS[(File storage)]
+```
+
+- **React web app and React Native mobile app:** two clients built on the same API.
+- **Node.js REST API:** login, validation, permissions and metadata.
+- **MongoDB:** stores users, files, folders and who can access what.
+- **C++ file server:** a TCP server with a thread pool that serves many clients at once. Requests are parsed and run through a command pattern (`add`, `get`, `search`, `delete`), and text content is compressed before it is stored.
+- **Docker Compose:** the whole system starts with one command.
+- **Tests:** unit tests for the C++ core.
+
+## Tech stack
+
+`JavaScript` · `React` · `React Native (Expo)` · `Node.js` · `MongoDB` · `C / C++17` · `Docker Compose` · `CMake` · `Python` · `HTML / CSS / Bootstrap`
+
+## Team
 
 - Ariel Golod
 - Dvir Tabib
